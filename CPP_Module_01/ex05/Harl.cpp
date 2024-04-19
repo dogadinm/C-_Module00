@@ -36,19 +36,16 @@ void	Harl::error(void)
 
 void	Harl::complain(std::string level)
 {
-    std::string	levels; 
-	void		(Harl::*debug_complain)(void) = &Harl::debug;
-    void		(Harl::*info_complain)(void) = &Harl::info;
-    void		(Harl::*warning_complain)(void) = &Harl::warning;
-    void		(Harl::*error_complain)(void) = &Harl::error;
+	void		(Harl::*ptr_complain[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-    if (level == "DEBUG")
-        (this->*debug_complain)();
-    else if (level == "INFO")
-        (this->*info_complain)();
-    else if (level == "WARNING")
-        (this->*warning_complain)();
-    else if (level == "ERROR")
-        (this->*error_complain)();
+	for (int i = 0; i < 4; i++)
+	{
+		if (levels[i] == level)
+		{
+			(this->*ptr_complain[i])();
+			break ;
+		}
+	}
 
 }
