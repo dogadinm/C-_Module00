@@ -36,38 +36,18 @@ void Fixed::setRawBits( int const raw )
     this->_fixedVar = raw;
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Fixed::Fixed(const int integer)
 {
-    // std::bitset<16> binaryRepresentation0(integer);  
-    // std::cout << "Binary: " << binaryRepresentation0 << std::endl;
 	std::cout << "Int constructor called" << std::endl;
 	this->_fixedVar = (integer << Fixed::_frac);
-    // std::cout << _fixedVar  << std::endl;
-    // std::bitset<16> binaryRepresentation(_fixedVar); 
-    // std::cout << "Binary: " << binaryRepresentation << std::endl;
 }
 
 Fixed::Fixed(const float floating_point)
 {
-
-
-    // uint32_t intRepresentation;
-    // std::memcpy(&intRepresentation, &floating_point, sizeof(float));
-    // std::bitset<32> binaryRepresentation(intRepresentation);
-    // std::cout << "Binary orig: " << binaryRepresentation << std::endl;
-
-    // std::bitset<32> binaryRepresentation0(floating_point);  
-    // std::cout << "Binary: " << binaryRepresentation0 << std::endl;
-
 	std::cout << "Float constructor called" << std::endl;
 	this->_fixedVar = roundf(floating_point * (1 << Fixed::_frac));
-
-    // std::cout << _fixedVar  << std::endl;
-    // std::bitset<32> binaryRepresentation(_fixedVar);  
-    // std::cout << "Binary: " << binaryRepresentation << std::endl;
 }
 
 float	Fixed::toFloat(void) const
@@ -80,11 +60,46 @@ int		Fixed::toInt(void) const
 	return (this->_fixedVar >> Fixed::_frac);
 }
 
-std::ostream	&operator<<(std::ostream &stream, Fixed const &f)
+std::ostream	&operator<<(std::ostream &str, Fixed const &object)
 {
-	stream << f.toFloat();
-	return (stream);
+	str << object.toFloat();
+	return (str);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// For Tests
+
+// Fixed::Fixed(const int integer)
+// {
+//     std::bitset<16> binaryRepresentation0(integer);  
+//     std::cout << "Binary: " << binaryRepresentation0 << std::endl;
+// 	std::cout << "Int constructor called" << std::endl;
+// 	this->_fixedVar = (integer << Fixed::_frac);
+//     std::cout << _fixedVar  << std::endl;
+//     std::bitset<16> binaryRepresentation(_fixedVar); 
+//     std::cout << "Binary: " << binaryRepresentation << std::endl;
+// }
+
+// Fixed::Fixed(const float floating_point)
+// {
+
+
+//     uint32_t intRepresentation;
+//     std::memcpy(&intRepresentation, &floating_point, sizeof(float));
+//     std::bitset<32> binaryRepresentation(intRepresentation);
+//     std::cout << "Binary orig: " << binaryRepresentation << std::endl;
+
+//     std::bitset<32> binaryRepresentation0(floating_point);  
+//     std::cout << "Binary: " << binaryRepresentation0 << std::endl;
+
+// 	std::cout << "Float constructor called" << std::endl;
+// 	this->_fixedVar = roundf(floating_point * (1 << Fixed::_frac));
+
+//     std::cout << _fixedVar  << std::endl;
+//     std::bitset<32> binaryRepresentation(_fixedVar);  
+//     std::cout << "Binary: " << binaryRepresentation << std::endl;
+// }
 
 // https://calcus.ru/perevod-sistem-schisleniya/iz-dvoichnoy-v-desyatichnuyu?input=eyJudW1iZXIiOiIxMDEwMTAwMTEwMTEwMCIsImZyb20iOiIyIiwidG8iOiIxMCJ9
 // http://floatingpoint.ru/online/dec2float.php

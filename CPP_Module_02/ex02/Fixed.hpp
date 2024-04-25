@@ -54,6 +54,6 @@ public:
 
 };
 
-std::ostream	&operator<<(std::ostream &str, Fixed const &fixed_nbr);
+std::ostream	&operator<<(std::ostream &str, Fixed const &object);
 
 #endif
