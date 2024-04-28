@@ -1,11 +1,11 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void): _name("Someone"), health(10), energyPoint(10), attackDamadge(0)
+ClapTrap::ClapTrap(void): _name("Someone"), health(100), energyPoint(50), attackDamadge(20)
 {
     std::cout << "ClapTrap " << this->_name << " created with default constructor." << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name): _name(name), health(10), energyPoint(10), attackDamadge(0)
+ClapTrap::ClapTrap(std::string name): _name(name), health(100), energyPoint(50), attackDamadge(20)
 {
     std::cout << "ClapTrap " << this->_name << " created with default constructor." << std::endl;
 }
@@ -24,13 +24,10 @@ ClapTrap::ClapTrap(ClapTrap const &copy)
 ClapTrap &ClapTrap::operator=(ClapTrap const &copy)
 {
 	std::cout << "Assignment operator for ClapTrap called." << std::endl;
-    if (this != &copy)
-    {
-        this->_name = copy.get_name();
-        this->health = copy.get_health();
-        this->energyPoint = copy.get_energyPoint();
-        this->attackDamadge = copy.get_attackDamadge();        
-    }
+    this->_name = copy.get_name();
+    this->health = copy.get_health();
+    this->energyPoint = copy.get_energyPoint();
+    this->attackDamadge = copy.get_attackDamadge();
     return (*this);
 }
 
