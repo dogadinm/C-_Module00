@@ -25,8 +25,8 @@ void	egor_get_hit(void)
 
 	while (egor.get_health())
 	{
-		egor.takeDamage(2);
-		egor.beRepaired(2);
+		egor.takeDamage(50);
+		egor.beRepaired(50);
 	}
 	egor.takeDamage(1);
 	egor.highFivesGuys();

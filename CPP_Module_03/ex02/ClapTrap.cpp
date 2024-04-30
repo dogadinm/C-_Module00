@@ -1,11 +1,11 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void): _name("Someone"), health(100), energyPoint(50), attackDamadge(20)
+ClapTrap::ClapTrap(void): _name("Someone"), health(100), energyPoint(100), attackDamadge(30)
 {
     std::cout << "ClapTrap " << this->_name << " created with default constructor." << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name): _name(name), health(100), energyPoint(50), attackDamadge(20)
+ClapTrap::ClapTrap(std::string name): _name(name), health(100), energyPoint(100), attackDamadge(30)
 {
     std::cout << "ClapTrap " << this->_name << " created with default constructor." << std::endl;
 }
