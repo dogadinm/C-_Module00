@@ -1,5 +1,5 @@
-#ifndef CAT_PP
-#define CAT_PP
+#ifndef CAT_HPP
+#define CAT_HPP
 
 #include "Animal.hpp"
 
@@ -9,15 +9,12 @@ private:
     std::string	type;
 public:
     Cat(void);
-    Cat(std::string const &taken_type);
     Cat(Cat const &copy);
     ~Cat(void);
 
     Cat const	&operator=(Cat const &copy);
 
-    // std::string const	&getType(void) const;
-    // void				setType(std::string const &taken_type);
-
+    const   std::string &getType(void) const;
     void	makeSound(void) const;
 };
 

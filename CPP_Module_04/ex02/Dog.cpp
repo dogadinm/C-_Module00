@@ -2,31 +2,46 @@
 
 Dog::Dog(void): type("Dog")
 {
+	this->brain = new Brain();
 	std::cout << "Dog Default Constructor called." << std::endl;
 }
 
 Dog::Dog(Dog const &copy): Animal(copy)
 {
-	*this = copy;
+	Animal::type = copy.getType();
+	this->brain = new Brain(*copy.brain);
 	std::cout << "Dog Copy Constructor called" << std::endl;
 }
 
 Dog::~Dog(void)
 {
+	delete this->brain;
 	std::cout << "Dog Deconstructor called." << std::endl;
 }
-
 
 
 Dog const	&Dog::operator=(Dog const &copy)
 {
 	std::cout << "Dog Assignation operator called." << std::endl;
-    if (this != &copy)
-    {
+	if (this != &copy) {
         this->type = copy.getType();
 		Animal::operator=(copy);
-    }
-	return (*this);
+		delete this->brain;
+		this->brain = new Brain(*copy.brain);
+	}
+	return *this;
+}
+
+
+
+Brain &Dog::getBrain(void) const
+{
+	return (*this->brain);
+}
+
+void	Dog::setBrain(Brain const &takenBrain)
+{
+	*this->brain = takenBrain;
 }
 
 const std::string &Dog::getType(void) const

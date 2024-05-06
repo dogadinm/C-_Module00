@@ -16,7 +16,6 @@ Animal::~Animal()
 }
 
 
-
 Animal const &Animal::operator=(Animal const &copy)
 {
     std::cout << "Assignment operator for Animal called." << std::endl;

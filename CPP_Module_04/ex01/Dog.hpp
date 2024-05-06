@@ -7,6 +7,7 @@ class Dog: public Animal
 {
 private:
     std::string	type;
+    Brain		*brain;
 public:
     Dog(void);
     Dog(Dog const &copy);
@@ -14,8 +15,10 @@ public:
 
     Dog const	&operator=(Dog const &copy);
 
-    const std::string &getType(void) const;
-    void	makeSound(void) const;
+    const std::string   &getType(void) const;
+	void	            setBrain(Brain const &takenBrain);
+	Brain 				&getBrain(void) const;
+    void	            makeSound(void) const;
 };
 
 #endif
