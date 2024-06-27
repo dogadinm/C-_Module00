@@ -1,11 +1,10 @@
 
-#ifndef BUREAUCRAT_H_
-#define BUREAUCRAT_H_
-
-#define LOWEST 150
-#define HIGHEST 1
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
 #include <iostream>
+#include "Form.hpp"
+class Form;
 
 class Bureaucrat
 {
@@ -34,6 +33,8 @@ public:
         public:
             virtual const char *what() const throw();
     };
+
+    void	signForm(Form &form);
 
 };
 

@@ -1,6 +1,6 @@
 
-#ifndef BUREAUCRAT_H_
-#define BUREAUCRAT_H_
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
 #include <iostream>
 
@@ -13,7 +13,7 @@ public:
     Bureaucrat(void);
     Bureaucrat(std::string const &name, int grade);
     Bureaucrat(Bureaucrat const &copy);
-    ~Bureaucrat();
+    virtual ~Bureaucrat();
 
     Bureaucrat const &operator=(Bureaucrat const &copy);
     std::string const &getName(void) const;

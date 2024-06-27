@@ -1,71 +1,55 @@
-#include "Bureaucrat.h"
+#include "Bureaucrat.hpp"
+#include "Form.hpp"
 
+class Bureaucrat;
 
 int main(void)
 {
-	/* Throw exception when calling constructor with grade too high */
+	/* Create a form with grade too high */
 	{
 		try
 		{
-			Bureaucrat mike("Mike", 0);
+			Form form0("A99", 0, 5);
+			std::cout << form0 << std::endl;
+		}
+		catch(std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+		
+	}
+
+	std::cout << "\n --------------------- \n\n";
+
+	/* Create form and sign it without exceptions */
+	{
+		try
+		{
+			Bureaucrat mike("Mike", 15);
+			Form form("B58", 20, 45);
 			std::cout << mike << std::endl;
+			std::cout << form << std::endl;
+			mike.signForm(form);
+			std::cout << form << std::endl;
 		}
 		catch (std::exception &e)
 		{
 			std::cout << e.what() << std::endl;
 		}
 	}
-
+	
 	std::cout << "\n --------------------- \n\n";
 
-	/* Throw exception when calling constructor with grade too low */
+	/* Create form and try to sign it but the grade is not enough */
 	{
 		try
 		{
-			Bureaucrat jim("Jim", 151);
-			std::cout << jim << std::endl;
-		}
-		catch (std::exception &e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-	}
-
-	std::cout << "\n --------------------- \n\n";
-	
-	/* Throw exeception when calling gradeUp */
-	{	
-		try 
-		{
-			Bureaucrat dur("Dur", 3);
-			std::cout << dur << std::endl;
-			dur.increaseGrade();
-			std::cout << dur << std::endl;
-			dur.increaseGrade();
-			std::cout << dur << std::endl;
-			dur.increaseGrade();
-			std::cout << dur << std::endl;
-		}
-		catch (std::exception &e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-	}
-
-	std::cout << "\n --------------------- \n\n";
-
-	/* Throw exeception when calling gradeDown */
-	{	
-		try 
-		{
-			Bureaucrat alan("Alan", 149);
-			std::cout << alan << std::endl;
-			alan.decreaseGarde();
-			std::cout << alan << std::endl;
-			alan.decreaseGarde();
-			std::cout << alan << std::endl;
-			alan.decreaseGarde();
-			std::cout << alan << std::endl;
+			Bureaucrat jon("Jon", 35);
+			Form form2("C_303", 20, 45);
+			std::cout << jon << std::endl;
+			std::cout << form2 << std::endl;
+			jon.signForm(form2);
+			std::cout << form2 << std::endl;
 		}
 		catch (std::exception &e)
 		{
