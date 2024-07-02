@@ -4,9 +4,10 @@
 
 
 #include "AForm.hpp"
-#include "Bureaucrat.hpp"
 #include <cstdlib>
 
+class Bureaucrat;
+class AForm;
 
 class RobotomyRequestForm: public AForm
 {
@@ -21,7 +22,10 @@ public:
         RobotomyRequestForm const	&operator=(RobotomyRequestForm const &copy);
 
         void	beExecuted(Bureaucrat const &bureaucrat) const;
+		static AForm	*makeForm(AForm *form, std::string const &type, std::string const &target);
 
+		/* Getters & Setters */
+		std::string const	&getTarget(void) const;
 };
 
 std::ostream	&operator<<(std::ostream &str, RobotomyRequestForm const &form);

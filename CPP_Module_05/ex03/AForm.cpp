@@ -1,4 +1,9 @@
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+
 
 
 AForm::AForm(void): _name("default"), _isSigned(false), _gradeRequired(150), _gradeExecute(150)
@@ -74,6 +79,18 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
     }
 }
 
+AForm	*AForm::makeForm(const std::string &type, const std::string &target)
+{
+	AForm	*form;
+
+	form = NULL;
+	form = ShrubberyCreationForm::makeForm(form, type, target);
+	form = RobotomyRequestForm::makeForm(form, type, target);
+	form = PresidentialPardonForm::makeForm(form, type, target);
+	return (form);
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 char const *AForm::GradeTooHighException::what(void) const throw()
@@ -91,6 +108,10 @@ char const	*AForm::FormNotSignedException::what(void) const throw()
 	return ("Form not signed");
 }
 
+char const	*AForm::InvalidFormException::what(void) const throw()
+{
+	return ("Invalid Form Request");
+}
 
 void	AForm::execute(Bureaucrat const &executor) const
 {
@@ -104,4 +125,5 @@ void	AForm::execute(Bureaucrat const &executor) const
 		this->beExecuted(executor);
 	}
 }
+
 

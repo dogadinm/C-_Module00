@@ -1,5 +1,7 @@
 
 #include "RobotomyRequestForm.hpp"
+#include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm(void): AForm::AForm("RobotomyRequestForm", 72, 45), _target("null")
 {}
@@ -33,6 +35,18 @@ void	RobotomyRequestForm::beExecuted(const Bureaucrat &bureaucrat) const
 	}
 	else
 		std::cout << this->_target << "'s robotomization failed" << std::endl;
+}
+
+AForm	*RobotomyRequestForm::makeForm(AForm *form, std::string const &type, std::string const &target)
+{
+	if (form == NULL && type == "robotomy request")
+		return (new RobotomyRequestForm(target));
+	return (form);
+}
+
+std::string const	&RobotomyRequestForm::getTarget(void) const
+{
+	return (this->_target);
 }
 
 std::ostream	&operator<<(std::ostream &str, RobotomyRequestForm const &form)
