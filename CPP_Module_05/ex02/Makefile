@@ -5,7 +5,8 @@ RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = form
-SHRUBBERY_FILE = Home_shrubbery
+SHRUBBERY_FILE = *_shrubbery
+
 
 all: $(NAME)
 

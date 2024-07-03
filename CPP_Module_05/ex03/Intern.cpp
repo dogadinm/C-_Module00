@@ -1,5 +1,6 @@
 #include "Intern.hpp"
 
+
 Intern::Intern(void) {}
 
 Intern::Intern(Intern const &copy)
@@ -18,8 +19,28 @@ Intern const	&Intern::operator=(const Intern &copy)
 AForm	*Intern::makeForm(const std::string &type, const std::string &target)
 {
 	AForm	*form;
+	int n = 4;
 
-	form = AForm::makeForm(type, target);
+	std::string	levels[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+
+	for (int i = 0; i < 3; i++)
+		if (type == levels[i])
+			n = i;
+
+	switch (n) {
+		case 0:
+			form = new ShrubberyCreationForm(target);
+			break;
+		case 1:
+			form = new RobotomyRequestForm(target);
+			break;
+		case 2:
+			form = new PresidentialPardonForm(target);
+			break;
+		default:
+			form =  NULL;
+	}
+
 	if (!form)
 		throw (AForm::InvalidFormException());
 	else

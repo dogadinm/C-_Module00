@@ -1,8 +1,5 @@
 #include "AForm.hpp"
-#include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+
 
 
 
@@ -78,29 +75,6 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
         std::cout << bureaucrat.getName() << " successfully signed " << this->_name << std::endl;
     }
 }
-
-AForm	*AForm::makeForm(const std::string &type, const std::string &target)
-{
-	int n;
-
-	std::string	levels[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
-
-	for (int i = 0; i < 3; i++)
-		if (type == levels[i])
-			n = i;
-
-	switch (n) {
-		case 0:
-			return (new ShrubberyCreationForm(target));
-		case 1:
-			return (new RobotomyRequestForm(target));
-		case 2:
-			return (new PresidentialPardonForm(target));
-		default:
-			return NULL;
-	}
-}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 

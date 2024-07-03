@@ -2,6 +2,8 @@
 
 
 #include <iostream>
+#include "Bureaucrat.hpp"
+
 
 
 class Bureaucrat;
@@ -36,7 +38,6 @@ public:
     void                beSigned(Bureaucrat &bureaucrat);
     void                execute(Bureaucrat const &executor) const;
     virtual void	    beExecuted(Bureaucrat const &bureaucrat) const = 0;
-    static AForm		*makeForm(std::string const &type, std::string const &target);
 
     // Exceptions
     class GradeTooHighException: public std::exception{
