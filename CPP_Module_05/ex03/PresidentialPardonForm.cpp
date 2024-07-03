@@ -32,13 +32,6 @@ void	PresidentialPardonForm::beExecuted(const Bureaucrat &bureaucrat) const
 	std::cout << this->_target << " has been pardoned by Zafod Beeblebrox" << std::endl;
 }
 
-AForm	*PresidentialPardonForm::makeForm(AForm *form, std::string const &type, std::string const &target)
-{
-	if (form == NULL && type == "presidential pardon")
-		return (new PresidentialPardonForm(target));
-	return (form);
-}
-
 std::string const	&PresidentialPardonForm::getTarget(void) const
 {
 	return (this->_target);

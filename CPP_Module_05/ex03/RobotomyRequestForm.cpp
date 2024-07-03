@@ -37,13 +37,6 @@ void	RobotomyRequestForm::beExecuted(const Bureaucrat &bureaucrat) const
 		std::cout << this->_target << "'s robotomization failed" << std::endl;
 }
 
-AForm	*RobotomyRequestForm::makeForm(AForm *form, std::string const &type, std::string const &target)
-{
-	if (form == NULL && type == "robotomy request")
-		return (new RobotomyRequestForm(target));
-	return (form);
-}
-
 std::string const	&RobotomyRequestForm::getTarget(void) const
 {
 	return (this->_target);

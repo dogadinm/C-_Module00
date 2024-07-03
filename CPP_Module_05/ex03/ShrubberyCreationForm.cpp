@@ -40,13 +40,6 @@ void	ShrubberyCreationForm::beExecuted(const Bureaucrat &bureaucrat) const
 	std::cout << bureaucrat.getName() << " successfully created a shrubbery" << std::endl;
 }
 
-AForm	*ShrubberyCreationForm::makeForm(AForm *form, std::string const &type, std::string const &target)
-{
-	if (form == NULL && type == "shrubbery creation")
-		return (new ShrubberyCreationForm(target));
-	return (form);
-}
-
 std::string const	&ShrubberyCreationForm::getTarget(void) const
 {
 	return (this->_target);

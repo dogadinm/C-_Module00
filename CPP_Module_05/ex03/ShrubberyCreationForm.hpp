@@ -24,8 +24,6 @@ class ShrubberyCreationForm: public AForm
 		/* Main Member Functions */
 		void	beExecuted(Bureaucrat const &bureaucrat) const;
 
-		static AForm	*makeForm(AForm *form, std::string const &type, std::string const &target);
-
 		/* Getters & Setters */
 		std::string const	&getTarget(void) const;
 };

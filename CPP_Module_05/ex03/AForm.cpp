@@ -81,13 +81,24 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
 
 AForm	*AForm::makeForm(const std::string &type, const std::string &target)
 {
-	AForm	*form;
+	int n;
 
-	form = NULL;
-	form = ShrubberyCreationForm::makeForm(form, type, target);
-	form = RobotomyRequestForm::makeForm(form, type, target);
-	form = PresidentialPardonForm::makeForm(form, type, target);
-	return (form);
+	std::string	levels[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+
+	for (int i = 0; i < 3; i++)
+		if (type == levels[i])
+			n = i;
+
+	switch (n) {
+		case 0:
+			return (new ShrubberyCreationForm(target));
+		case 1:
+			return (new RobotomyRequestForm(target));
+		case 2:
+			return (new PresidentialPardonForm(target));
+		default:
+			return NULL;
+	}
 }
 
 

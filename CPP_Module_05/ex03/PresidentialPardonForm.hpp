@@ -23,8 +23,6 @@ public:
     PresidentialPardonForm const &operator=(PresidentialPardonForm const &copy);
 
     void    beExecuted(const Bureaucrat &bureaucrat) const;
-    static AForm	*makeForm(AForm *form, std::string const &type, std::string const &target);
-    
 
 };
 
