@@ -28,12 +28,17 @@ int main(void)
 
 	// Test some Actions with available form
 	std::cout << "------------------------------------" << std::endl;
-	form = bob.makeForm("shrubbery creation", "Fred");
+	form = bob.makeForm("shrubbery creation", "Steve");
 	form->beSigned(karen);
 	karen.executeForm(*form);
 	delete form;
 	std::cout << "------------------------------------" << std::endl;
-	form = bob.makeForm("presidential pardon", "Georgia");
+	form = bob.makeForm("presidential pardon", "Misha");
+	karen.signForm(*form);
+	karen.executeForm(*form);
+	delete form;
+	std::cout << "------------------------------------" << std::endl;
+	form = bob.makeForm("robotomy request", "Oleg");
 	karen.signForm(*form);
 	karen.executeForm(*form);
 	delete form;
