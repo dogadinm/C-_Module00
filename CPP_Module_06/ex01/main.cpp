@@ -10,10 +10,10 @@ int main() {
 
     uintptr_t rawData = Serializer::serialize(data);
     std::cout << "Raw data         : " << rawData << std::endl;
+
     Data* retData = Serializer::deserialize(rawData);
     std::cout << "Deserialized data: " << retData << std::endl;
 
-    // Verify if deserialization was correct
     std::cout << "Data value       : " << retData->n << std::endl;
 
     delete data;
