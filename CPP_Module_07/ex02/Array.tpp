@@ -18,10 +18,9 @@ Array<T>::Array(unsigned int n)
 }
 
 template <typename T>
-Array<T>::Array(const Array<T> &copy):_size(copy.getSize())
+Array<T>::Array(const Array<T> &copy):_array(NULL), _size(copy.getSize())
 {
     std::cout << "Copy Constuctor called" << std::endl;
-    _array = NULL;
     *this = copy;
 }
 
