@@ -21,6 +21,7 @@ public:
     }
     ~MutantStack(){
         // std::cout << "Deconstuctor called" << std::endl;
+        this->c.clear();
     }
 
     MutantStack  &operator=(MutantStack  const &copy)
