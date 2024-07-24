@@ -22,7 +22,7 @@ BitcoinExchange::BitcoinExchange()
     std::getline(btcFile, line);
     while (true)
     {
-        std::pair<std::string, double> res = setMap(btcFile, ",");
+        std::pair<std::string, double> res = parser(btcFile, ",");
         if (res.first == "NULL")
              break; 
         _btcInfo[res.first] = res.second;
@@ -49,7 +49,7 @@ void BitcoinExchange::getValue(char argv[])
 
     while (true)
     {
-        std::pair<std::string, double> res = setMap(inputFil, "|");
+        std::pair<std::string, double> res = parser(inputFil, "|");
         if (res.first == "NULL")
              break;
         else if (res.first == "Error: bad input")
@@ -73,7 +73,7 @@ void BitcoinExchange::getValue(char argv[])
 
 }
 
-std::pair<std::string, double> BitcoinExchange::setMap(std::ifstream &inputFile, const char *c)
+std::pair<std::string, double> BitcoinExchange::parser(std::ifstream &inputFile, const char *c)
 {
 
     std::size_t separPos;
