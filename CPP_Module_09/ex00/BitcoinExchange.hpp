@@ -12,13 +12,22 @@ class BitcoinExchange
 {
 private:
     std::map<std::string, double> _btcInfo;
-    std::map<std::string, double> _inputInfo;
+
+    std::pair<std::string, double> setMap(std::ifstream &inputFile, const char *c);
+    bool isValidDate(const std::string& date);
+    bool isLeapYear(int year);
+    int daysInMonth(int year, int month);
+    
+
 public:
     BitcoinExchange();
+    BitcoinExchange(BitcoinExchange const &copy);
     ~BitcoinExchange();
-    std::map<std::string, double> setMap(std::ifstream &inputFile, const char *c);
 
+
+    BitcoinExchange &operator=(BitcoinExchange const &copy);
 
     void getValue(char argv[]);
+
 };
 

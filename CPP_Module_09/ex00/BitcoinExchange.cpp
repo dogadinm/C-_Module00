@@ -2,139 +2,164 @@
 
 #include <iomanip>
 
+
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &copy)
+{
+	*this = copy;
+}
+
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &copy)
+{
+	this->_btcInfo = copy._btcInfo;
+	return (*this);
+}
+
+
 BitcoinExchange::BitcoinExchange()
 {
-    // std::size_t commonPos;
-    // std::string date;
-    // std::string valueStr;
-    // double value;
-
-    // std::cout << std::fixed << std::setprecision(2);
+    std::string line;
     std::ifstream btcFile ("./data.csv");
-    _btcInfo = setMap(btcFile, ",");
-    // if (!btcFile.is_open())
-    // {
-    //     std::cout << "cant open data.cvs" << std::endl;
-    //     exit(1);
-    // }
-    // std::string line;
-    // std::getline(btcFile, line);
-
-    // while (std::getline(btcFile, line))
-    // {
-    //     commonPos = line.find(',');
-
-    //     if (commonPos != std::string::npos)
-    //     {
-    //         date = line.substr(0, commonPos);
-    //         valueStr = line.substr(commonPos + 1);
-    //         std::istringstream ist(valueStr);
-    //         ist>>value;        
-    //         _btcInfo[date] = value;
-    //     }
-    //     else{
-    //         std::cerr << "Error: invalid input format" << std::endl;
-    //     }
-
-    // }
-    std::map<std::string, double>::iterator it = _btcInfo.begin();
-    while (it != _btcInfo.end())
+    std::getline(btcFile, line);
+    while (true)
     {
-        
-        std::cout << "Date: "<< it->first <<  " " <<  "Price: " << it->second << std::endl;
-        ++it;
+        std::pair<std::string, double> res = setMap(btcFile, ",");
+        if (res.first == "NULL")
+             break; 
+        _btcInfo[res.first] = res.second;
     }
+    
+    // std::map<std::string, double>::iterator it = _btcInfo.begin();
+    // while (it != _btcInfo.end())
+    // {
+        
+    //     std::cout << "Date: "<< it->first <<  " " <<  "Price: " << it->second << std::endl;
+    //     ++it;
+    // }
 }
 
 void BitcoinExchange::getValue(char argv[])
 {
+    double value;
+    std::string line;
+
+    std::map<std::string, double>::iterator it;
     std::ifstream inputFil (argv);
-    _inputInfo = setMap(inputFil, ",");
-//     std::ifstream inputFile (argv);
-//     std::size_t pipePos;
-//     std::string inputDate;
-//     std::string valueStr;
-//     double value;
-//     double value2;
- 
-//     if (!inputFile.is_open())
-//     {
-//         std::cout << "cant open data.cvs" << std::endl;
-//         exit(1);
-//     }
-//     std::string line;
-//     std::getline(inputFile, line);
+    std::getline(inputFil, line);
 
-//     while (std::getline(inputFile, line))
-//     {
-//         size_t index = 0;
-//         while((index = line.find(' ')) != std::string::npos)
-//             line.erase(index, 1);
+
+    while (true)
+    {
+        std::pair<std::string, double> res = setMap(inputFil, "|");
+        if (res.first == "NULL")
+             break;
+        else if (res.first == "Error: bad input")
+             continue;
         
-//         if ((pipePos = line.find('|')) != std::string::npos)
-//         {
+        it = _btcInfo.lower_bound(res.first);
+        it--;
 
+        if (res.second < 0){
+            std::cout <<"Error: not a positive number."<< std::endl;
+            continue;
+        }else if (res.second > 1000){
+            std::cout << "Error: too large a number." << std::endl;
+            continue;
+        }
             
-//             inputDate = line.substr(0, pipePos);
-//             valueStr = line.substr(pipePos + 1);
-//             std::istringstream ist(valueStr );
-//             ist>>value;
-//             value2 = _btcInfo[inputDate] * value;
-//             std::cout << inputDate << " => "<< valueStr << " = " << 
-//                 value2 << std::endl;
+        value = _btcInfo[it->first] * res.second;    
+        std::cout << res.first << " => "<< res.second << " = " << value << std::endl;
+    }
+    inputFil.close();
 
-//         }
-//         else{
-//             std::cerr << "Error: invalid input format" << std::endl;
-//         }
-
-//     }
 }
 
-std::map<std::string, double> BitcoinExchange::setMap(std::ifstream &inputFile, const char *c)
+std::pair<std::string, double> BitcoinExchange::setMap(std::ifstream &inputFile, const char *c)
 {
 
-    std::size_t pipePos;
+    std::size_t separPos;
+    std::string line;
+    std::string line_no_space;    
     std::string inputDate;
     std::string valueStr;
+    size_t index;
     double value;
-    // double value2;
 
-    std::map<std::string, double> tmp;
- 
-    if (!inputFile.is_open())
-    {
-        std::cout << "cant open data.cvs" << std::endl;
+    if (!inputFile.is_open()){
+        std::cout << "Cant open the file" << std::endl;
         exit(1);
     }
-    std::string line;
-    std::getline(inputFile, line);
+    
 
-    while (std::getline(inputFile, line))
+
+    if (std::getline(inputFile, line))
     {
-        size_t index = 0;
-        while((index = line.find(' ')) != std::string::npos)
-            line.erase(index, 1);
-        
-        if ((pipePos = line.find(c)) != std::string::npos)
-        {
+        line_no_space = line;
 
-            
-            inputDate = line.substr(0, pipePos);
-            valueStr = line.substr(pipePos + 1);
-            std::istringstream ist(valueStr );
-            ist>>value;
-            // value2 = _btcInfo[inputDate] * value;
-            // std::cout << inputDate << " => "<< valueStr << " = " << 
-            //     value2 << std::endl;
-            tmp[inputDate] = value;
+        // Delete space 
+        index = 0;
+        while((index = line_no_space.find(' ')) != std::string::npos)
+            line_no_space.erase(index, 1);
+
+        // Divide a line 
+        if (((separPos = line_no_space.find(c)) != std::string::npos))
+        {
+            // Get Date
+            inputDate = line_no_space.substr(0, separPos);
+            if (!isValidDate(inputDate)) {
+                std::cerr << "Error: bad input => " << line << std::endl;
+                return std::make_pair("Error: bad input", 0.0);
+            }
+            // Get value
+            valueStr = line_no_space.substr(separPos + 1);
+            std::istringstream ist(valueStr);
+            if (!(ist >> value)) { 
+                std::cerr << "Error: bad input => " << line << std::endl;
+                return std::make_pair("Error: bad input", 0.0);
+            }
         }
         else{
-            std::cerr << "Error: invalid input format" << std::endl;
+            std::cerr << "Error: bad input => " << line << std::endl;
+            return std::make_pair("Error: bad input", 0.0);
         }
-
     }
-    return tmp;
+    else
+        return std::make_pair("NULL", 0.0);
+    return std::make_pair(inputDate, value);
+
+}
+
+
+bool BitcoinExchange::isValidDate(const std::string& date) {
+    std::istringstream iss(date);
+    int year, month, day;
+    char delimiter1, delimiter2;
+
+    if (!(iss >> year >> delimiter1 >> month >> delimiter2 >> day) ||
+        delimiter1 != '-' || delimiter2 != '-' || month < 1 || month > 12 || day < 1) {
+        return false;
+    }
+
+    // Checking the correctness of the day depending on the monthа
+    return day <= daysInMonth(year, month);
+}
+
+// Checking the number of days in a month
+int BitcoinExchange::daysInMonth(int year, int month) {
+    switch (month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            return 31;
+        case 4: case 6: case 9: case 11:
+            return 30;
+        case 2:
+            return isLeapYear(year) ? 29 : 28;
+        default:
+            return 0;
+    }
+}
+
+// Leap year check
+bool BitcoinExchange::isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
 BitcoinExchange::~BitcoinExchange()
