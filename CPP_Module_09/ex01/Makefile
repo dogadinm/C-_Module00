@@ -1,10 +1,10 @@
-SRC = main.cpp Span.cpp
+SRC = main.cpp RPN.cpp
 OBJ = $(SRC:.cpp=.o)
 CC = g++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror  -pedantic
 
-NAME = span
+NAME = RPN
 
 all: $(NAME)
 
