@@ -1,10 +1,10 @@
-SRC = main.cpp
+SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
 CC = g++
 RM = rm -f
-CPPFLAGS = -Wall -Wextra -Werror  -pedantic
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
-NAME = stack
+NAME = PmergeMe
 
 all: $(NAME)
 

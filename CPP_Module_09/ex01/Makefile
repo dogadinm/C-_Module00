@@ -2,7 +2,7 @@ SRC = main.cpp RPN.cpp
 OBJ = $(SRC:.cpp=.o)
 CC = g++
 RM = rm -f
-CPPFLAGS = -Wall -Wextra -Werror  -pedantic
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = RPN
 
